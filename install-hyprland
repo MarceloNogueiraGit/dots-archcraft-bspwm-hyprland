@@ -49,13 +49,6 @@ sleep 2
 printf "\n"
 printf "\n"
 
-# Print VM warning message
-printf "\n${NOTE} If you are installing on a VM (virtual box, VMWARE, QEMU-KVM), kindly ensure that 3D acceleration is enabled.\n"
-printf "Hyprland's performance on a Virtual Environment is abysmal... worst at its best. and it may not start at all!! YOU HAVE BEEN WARNED .${RESET}\n"
-sleep 2
-printf "\n"
-printf "\n"
-
 # Print system-update warning message
 printf "\n${NOTE} If you have not perform a full system update for a while, cancel the script by CTRL C and perform a full system update first\n"
 printf "${WARN} If there is a kernel update, reboot first your system and re-run script. Script may fail if not updated. .${RESET}\n"
@@ -262,7 +255,7 @@ clear
 # installation of other components needed
 printf "\n%s - Installing other necessary packages.... \n" "${NOTE}"
 
-for PKG1 in alacritty alacritty-themes neofetch neovim python-pynvim wl-clipboard xclip xsel swaybg swaylock-effects wofi wlogout mako grim slurp wl-clipboard polkit-kde-agent nwg-look-bin swww mousepad micro pavucontrol playerctl; do
+for PKG1 in alacritty alacritty-themes zsh oh-my-zsh-git oh-my-zsh-plugin-autosuggestions oh-my-zsh-plugin-syntax-highlighting brave-bin neofetch neovim python-pynvim wl-clipboard xclip xsel swaybg swaylock-effects wofi wlogout mako grim slurp wl-clipboard polkit-kde-agent nwg-look-bin swww mousepad micro pavucontrol playerctl; do
     install_package "$PKG1" 2>&1 | tee -a "$LOG"
     if [ $? -ne 0 ]; then
         echo -e "\e[1A\e[K${ERROR} - $PKG1 install had failed, please check the install.log"
@@ -600,7 +593,7 @@ else
   printf "${WARN} Ensure to type in the proper keyboard layout, e.g., uk, de, pl, etc.\n"
   read -p "Please enter the correct keyboard layout: " new_layout
   # Update the 'kb_layout=' line with the correct layout in the file
-  awk -v new_layout="$new_layout" '/kb_layout/ {$0 = "  kb_layout=us-acentos," new_layout} 1' config/hypr/hyprland.conf > temp.conf
+  awk -v new_layout="$new_layout" '/kb_layout/ {$0 = "  kb_layout=us," new_layout} 1' config/hypr/hyprland.conf > temp.conf
   mv temp.conf config/hypr/hyprland.conf
 fi
 printf "\n"
@@ -638,6 +631,9 @@ if [[ $CFG =~ ^[Yy]$ ]]; then
     printf " Copying config files...\n"
     mkdir -p ~/.config
     cp -r config/hypr ~/.config/ || { echo "Error: Failed to copy hypr config files."; exit 1; } 2>&1 | tee -a "$LOG"
+    cp -r .zshrc ~/ || { echo "Error: Failed to copy .zshrc config files."; exit 1; } 2>&1 | tee -a "$LOG"
+    cp -r .tmux.conf ~/ || { echo "Error: Failed to copy .tmux.conf config files."; exit 1; } 2>&1 | tee -a "$LOG"
+    cp -r coolnight.itermcolors ~/ || { echo "Error: Failed to copy coolnight.itermcolors config files."; exit 1; } 2>&1 | tee -a "$LOG"
     cp -r config/alacritty ~/.config/ || { echo "Error: Failed to copy alacritty config files."; exit 1; } 2>&1 | tee -a "$LOG"
     cp -r config/nvim ~/.config/ || { echo "Error: Failed to copy nvim config files."; exit 1; } 2>&1 | tee -a "$LOG"
     cp -r config/neofetch ~/.config/ || { echo "Error: Failed to copy neofetch config files."; exit 1; } 2>&1 | tee -a "$LOG"
@@ -645,6 +641,8 @@ if [[ $CFG =~ ^[Yy]$ ]]; then
     cp -r config/btop ~/.config/ || { echo "Error: Failed to copy btop config files."; exit 1; } 2>&1 | tee -a "$LOG"
     cp -r config/cava ~/.config/ || { echo "Error: Failed to copy cava config files."; exit 1; } 2>&1 | tee -a "$LOG"
     cp -r wallpapers ~/Pictures/ || { echo "Error: Failed to copy wallpapers."; exit 1; } 2>&1 | tee -a "$LOG"
+    cp -r wallpapers ~/.config/ || { echo "Error: Failed to copy wallpapers."; exit 1; } 2>&1 | tee -a "$LOG"
+
 
     # Set some files as executable 
     chmod +x ~/.config/hypr/scripts/airplane-mode.sh 2>&1 | tee -a "$LOG"
