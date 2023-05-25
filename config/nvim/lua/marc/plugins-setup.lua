@@ -36,6 +36,19 @@ return packer.startup(function(use)
     requires = { "tjdevries/colorbuddy.nvim" },
   })
 
+  use({
+    "folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require("which-key").setup({
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      })
+    end,
+  })
+
   use("onsails/lspkind-nvim")
 
   use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
