@@ -11,7 +11,7 @@ local ensure_packer = function()
 end
 local packer_bootstrap = ensure_packer() -- true if packer was just installed
 
--- autocommand that reloads neovim and installs/updates/removes plugins
+----- autocommand that reloads neovim and installs/updates/removes plugins
 -- when file is saved
 vim.cmd([[ 
   augroup packer_user_config
@@ -31,31 +31,35 @@ return packer.startup(function(use)
   -- packer can manage itself
   use("wbthomason/packer.nvim")
 
+  use({
+    "svrana/neosolarized.nvim",
+    requires = { "tjdevries/colorbuddy.nvim" },
+  })
+
+  use({
+    "folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require("which-key").setup({
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      })
+    end,
+  })
+
+  use("onsails/lspkind-nvim")
+
   use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
 
   use("bluz71/vim-nightfly-guicolors") -- preferred colorscheme
 
-  use("catppuccin/nvim") -- catppuccin test for colorscheme
-
   use("AlexvZyl/nordic.nvim") -- nordic colorscheme
 
-  use("morhetz/gruvbox") --colorscheme
+  use("lunarvim/horizon.nvim") -- lunarvim colorscheme
 
-  use("olimorris/onedarkpro.nvim") --colorscheme
-
-  use("bluz71/vim-moonfly-colors") --colorscheme
-
-  use("dracula/vim") --colorscheme
-
-  use("Mofiqul/dracula.nvim") --colorscheme
-
-  use("loctvl842/monokai-pro.nvim") --colorscheme
-
-  use("Mofiqul/vscode.nvim") --colorscheme
-
-  use("justinsgithub/oh-my-monokai.nvim") -- colorscheme
-
-  use("Tsuzat/NeoSolarized.nvim") -- colorscheme
+  use("folke/tokyonight.nvim")
 
   use("NvChad/nvim-colorizer.lua") -- colorizer css
 
@@ -123,6 +127,9 @@ return packer.startup(function(use)
       ts_update()
     end,
   })
+
+  --indent fuziline
+  use("lukas-reineke/indent-blankline.nvim")
 
   -- auto closing
   use("windwp/nvim-autopairs") -- autoclose parens, brackets, quotes, etc...
