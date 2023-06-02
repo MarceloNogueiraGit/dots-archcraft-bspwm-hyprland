@@ -255,7 +255,7 @@ clear
 # installation of other components needed
 printf "\n%s - Installing other necessary packages.... \n" "${NOTE}"
 
-for PKG1 in alacritty-git alacritty-themes zsh brave-bin tmux neofetch neovim-nightly python-pynvim wl-clipboard xclip xsel swaybg swaylock-effects wofi wlogout mako grim slurp wl-clipboard polkit-kde-agent nwg-look-bin swww mousepad micro pavucontrol playerctl; do
+for PKG1 in alacritty-git fish tpm brave-bin tmux hyprpaper neofetch neovim python-pynvim wl-clipboard xclip xsel swaybg swaylock-effects wofi wlogout mako grim slurp wl-clipboard polkit-kde-agent nwg-look-bin swww mousepad micro pavucontrol playerctl; do
     install_package "$PKG1" 2>&1 | tee -a "$LOG"
     if [ $? -ne 0 ]; then
         echo -e "\e[1A\e[K${ERROR} - $PKG1 install had failed, please check the install.log"
@@ -271,7 +271,7 @@ for PKG2 in qt5ct btop jq gvfs gvfs-mtp ffmpegthumbs mpv python-requests pamixer
     fi
 done
 
-for FONT in otf-font-awesome ttf-jetbrains-mono-nerd ttf-jetbrains-mono otf-font-awesome-4 ttf-droid ttf-fantasque-sans-mono adobe-source-code-pro-fonts; do
+for FONT in otf-font-awesome ttf-jetbrains-mono-nerd ttf-fira-code ttf-fira-sans ttf-fira-mono ttf-jetbrains-mono otf-font-awesome-4 ttf-droid ttf-fantasque-sans-mono adobe-source-code-pro-fonts; do
     install_package  "$FONT" 2>&1 | tee -a "$LOG"
         if [ $? -ne 0 ]; then
         echo -e "\e[1A\e[K${ERROR} - $FONT install had failed, please check the install.log"
@@ -396,8 +396,8 @@ if [[ $install_sddm =~ ^[Yy]$ ]]; then
   fi
 
   # Install SDDM and Catppuccin theme
-  printf "${NOTE} Installing SDDM and Catppuccin theme...\n"
-  for package in sddm-git sddm-catppuccin-git; do
+  printf "${NOTE} Installing SDDM and Sugar-Candy theme...\n"
+  for package in sddm-git sddm-sugar-candy-git; do
     install_package "$package" 2>&1 | tee -a "$LOG"
     if [ $? -ne 0 ]; then
       echo -e "\e[1A\e[K${ERROR} - $package install has failed, please check the install.log"
@@ -436,7 +436,7 @@ if [[ $install_sddm =~ ^[Yy]$ ]]; then
         printf "$CAT - $sddm_conf_dir not found, creating...\n"
         sudo mkdir "$sddm_conf_dir" 2>&1 | tee -a "$LOG"
     fi
-    echo -e "[Theme]\nCurrent=catppuccin" | sudo tee -a "$sddm_conf_dir/10-theme.conf" 2>&1 | tee -a "$LOG"
+    echo -e "[Theme]\nCurrent=sugar-candy" | sudo tee -a "$sddm_conf_dir/10-theme.conf" 2>&1 | tee -a "$LOG"
 
     wayland_sessions_dir=/usr/share/wayland-sessions
     if [ ! -d "$wayland_sessions_dir" ]; then
@@ -451,27 +451,6 @@ fi
  
 #clear screen
 clear
-
-
-### Install software for Asus ROG laptops ###
-#read -n1 -rep "${CAT} (OPTIONAL - ONLY for ROG Laptops) Would you like to install Asus ROG software support? (y/n)" ROG
-#if [[ $ROG =~ ^[Yy]$ ]]; then
-#    printf " Installing ASUS ROG packages...\n"
-#    for ASUS in asusctl supergfxctl rog-control-center; do
-#        install_package  "$ASUS" 2>&1 | tee -a "$LOG"
-#        if [ $? -ne 0 ]; then
-#        echo -e "\e[1A\e[K${ERROR} - $ASUS install had failed, please check the install.log"
-#        exit 1
-#        fi
-#    done
-#    printf " Activating ROG services...\n"
-#    sudo systemctl enable --now supergfxd 2>&1 | tee -a "$LOG"
-#else
-#    printf "${NOTE} Asus ROG software support not installed..\n"
-#fi
-
-#clear screen
-#clear
 
 # XDPH
 printf "${YELLOW} Kindly note XDPH only needed for screencast/screenshot. Hyprland will still work hence this is optional\n"
@@ -617,34 +596,23 @@ if [[ $CFG =~ ^[Yy]$ ]]; then
 
     done
 
-    for DIRw in wallpapers
-    do 
-        DIRPATH=~/Pictures/$DIRw
-        if [ -d "$DIRPATH" ]; then 
-            echo -e "${NOTE} - wallpapers in $DIRw found, attempting to back up."
-            mv $DIRPATH $DIRPATH-back-up 2>&1 | tee -a "$LOG"
-            echo -e "${NOTE} - Backed up $DIRw to $DIRPATH-back-up."
-        fi
-
-    done
 
     printf " Copying config files...\n"
     mkdir -p ~/.config
     cp -r config/hypr ~/.config/ || { echo "Error: Failed to copy hypr config files."; exit 1; } 2>&1 | tee -a "$LOG"
-    cp -r .zshrc ~/ || { echo "Error: Failed to copy .zshrc config files."; exit 1; } 2>&1 | tee -a "$LOG"
-    cp -r .tmux.conf ~/ || { echo "Error: Failed to copy .tmux.conf config files."; exit 1; } 2>&1 | tee -a "$LOG"
-    cp -r coolnight.itermcolors ~/ || { echo "Error: Failed to copy coolnight.itermcolors config files."; exit 1; } 2>&1 | tee -a "$LOG"
     cp -r config/alacritty ~/.config/ || { echo "Error: Failed to copy alacritty config files."; exit 1; } 2>&1 | tee -a "$LOG"
     cp -r config/nvim ~/.config/ || { echo "Error: Failed to copy nvim config files."; exit 1; } 2>&1 | tee -a "$LOG"
+    cp -r config/fish ~/.config/ || { echo "Error: Failed to copy fish config files."; exit 1; } 2>&1 | tee -a "$LOG"
     cp -r config/neofetch ~/.config/ || { echo "Error: Failed to copy neofetch config files."; exit 1; } 2>&1 | tee -a "$LOG"
     cp -r config/wlogout ~/.config/ || { echo "Error: Failed to copy wlogout config files."; exit 1; } 2>&1 | tee -a "$LOG"
     cp -r config/btop ~/.config/ || { echo "Error: Failed to copy btop config files."; exit 1; } 2>&1 | tee -a "$LOG"
     cp -r config/cava ~/.config/ || { echo "Error: Failed to copy cava config files."; exit 1; } 2>&1 | tee -a "$LOG"
-    cp -r wallpapers ~/Pictures/ || { echo "Error: Failed to copy wallpapers."; exit 1; } 2>&1 | tee -a "$LOG"
-    cp -r wallpapers ~/.config/ || { echo "Error: Failed to copy wallpapers."; exit 1; } 2>&1 | tee -a "$LOG"
+    cp -r .wallpapers ~/ || { echo "Error: Failed to copy .wallpapers."; exit 1; } 2>&1 | tee -a "$LOG"
+    cp -r config/tmux ~/.config/ || { echo "Error: Failed to copy tmux config files."; exit 1; } 2>&1 | tee -a "$LOG"
 
 
-    # Set some files as executable 
+    # Set some files as executable
+    chmod +x ~/.config/hypr/scripts/* 2>&1 | tee -a "$LOG"
     chmod +x ~/.config/hypr/scripts/airplane-mode.sh 2>&1 | tee -a "$LOG"
     chmod +x ~/.config/hypr/scripts/brightness 2>&1 | tee -a "$LOG"
     chmod +x ~/.config/hypr/scripts/brightness-kbd 2>&1 | tee -a "$LOG"
