@@ -11,7 +11,7 @@ columns=2
 ## Geometry
 width=30%
 height=30%
-location=top_left
+location=top_right
 orientation=vertical
 halign=fill
 line_wrap=off

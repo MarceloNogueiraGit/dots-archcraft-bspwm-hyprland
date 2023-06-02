@@ -1,11 +1,12 @@
-*{
-  font-family: "JetBrainsMono Nerd Font";
+* {
+  font-family: "FiraCode";
   font-weight: bold;
   min-height: 0;
   font-size: 16px;
+  border: 2px;
   padding: 0;
   margin-top: 1px;
-  margin-bottom: 1px; 
+  margin-bottom: 1px;
 }
 
 window#waybar {
@@ -20,23 +21,23 @@ window#waybar {
   margin: 0px 0px;
 }
 window#waybar.empty #window {
-	background: rgba(12, 12, 12, 0.0);
+  background: rgba(12, 12, 12, 0);
 }
 window#waybar.hidden {
   opacity: 0.1;
 }
 
 tooltip {
-    background: #1e1e2e;
-    opacity: 0.8;
-    border-radius: 10px;
-    border-width: 2px;
-    border-style: solid;
-    border-color: #11111b;
+  background: #1e1e2e;
+  opacity: 0.8;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #11111b;
 }
 
-tooltip label{
-    color: #cdd6f4;
+tooltip label {
+  color: #cdd6f4;
 }
 #workspaces button {
   padding: 0 0px;
@@ -122,19 +123,17 @@ tooltip label{
   border-radius: 8px;
   background-color: rgba(50, 50, 50, 0.1);
   border: 1px solid #b4befe;
-  
 }
 
 #custom-menu {
-  color: #FFFFFF;
+  color: #ffffff;
   padding: 6px;
   padding-right: 10px;
   border-radius: 8px;
   background-color: rgba(50, 50, 50, 0.1);
   border: 1px solid #b4befe;
-
 }
-  
+
 #memory {
   color: #ebcb8b;
 }
@@ -192,11 +191,11 @@ tooltip label{
 }
 
 #pulseaudio {
-  color: #FFD580;
+  color: #ffd580;
 }
 
 #wireplumber {
-  color: #FFD580;
+  color: #ffd580;
 }
 #backlight {
   /* color: #EBCB8B; */
@@ -204,7 +203,7 @@ tooltip label{
 }
 
 #clock {
-  color: #90EE90;
+  color: #90ee90;
   /* background-color: #14141e; */
 }
 
@@ -297,7 +296,7 @@ label:focus {
 }
 
 #temperature {
-  color: #ADD8E6;
+  color: #add8e6;
 }
 
 #taskbar button.active {

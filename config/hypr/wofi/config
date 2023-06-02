@@ -5,13 +5,13 @@ show=drun
 prompt=Apps
 normal_window=true
 layer=overlay
-term=foot
-columns=2
+term=alacritty
+columns=1
 
 ## Geometry
-width=30%
-height=30%
-location=top_left
+width=15%
+height=80%
+location=top_right
 orientation=vertical
 halign=fill
 line_wrap=off

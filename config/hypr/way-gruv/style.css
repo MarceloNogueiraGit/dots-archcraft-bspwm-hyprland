@@ -1,0 +1,120 @@
+* {
+  font-family: "CartographCF";
+  font-weight: 700;
+  font-size: 16px;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+/* Groups */
+.modules-right,
+.modules-left,
+.modules-center {
+  background-color: #282828;
+  border: 2px solid #7c6f64;
+  padding: 2px;
+  border-radius: 8px;
+}
+
+label,
+button {
+  padding: 0 8px;
+}
+
+/* labels inside the workspace buttons are clean */
+button label {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+tooltip {
+  background: #32302f;
+  border: solid 1px #bdae93;
+}
+tooltip label {
+  color: #ebdbb2;
+  text-shadow: none;
+  border: none;
+}
+
+/* Per module customization. */
+#idle_inhibitor.activated {
+  color: #3c3836;
+  background: #fabd2f;
+  border: none;
+  border-radius: 5px;
+}
+#idle_inhibitor {
+  color: #fbf1c7;
+  padding-right: 15px;
+}
+#backlight {
+  color: #ebdbb2;
+}
+#custom-pacman {
+  color: #d5c4a1;
+}
+#network {
+  color: #bdae93;
+}
+#bluetooth {
+  color: #a89984;
+}
+#pulseaudio {
+  color: #928374;
+}
+#custom-microphone {
+  color: #7c6f64;
+}
+#custom-microphone.recording,
+#custom-microphone.recording-muted {
+  color: #fb4934;
+}
+#mpd {
+  color: #665c54;
+}
+#workspaces {
+  background: transparent;
+}
+#workspaces button {
+  color: #928374;
+  margin: 0;
+  padding: 0 5px;
+}
+#workspaces button.active {
+  color: #282828;
+  background: #427b58;
+}
+#workspaces button.active:hover {
+  background: #689d6a;
+}
+#battery {
+  color: #d65d0e;
+}
+#temperature.critical {
+  color: #cc241d;
+}
+#temperature {
+  color: #d79921;
+}
+#cpu {
+  color: #98971a;
+}
+#memory {
+  color: #689d6a;
+}
+#custom-weather {
+  color: #458588;
+}
+#clock {
+  color: #b16286;
+}
+#custom-menu {
+  color: #fbf1c7;
+}
+#custom-power {
+  color: #fabd2f;
+}
